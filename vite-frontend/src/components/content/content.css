@@ -1,0 +1,29 @@
+.blackBackground {
+    background-color: black;
+}
+
+.mainContent > *, .mainContent {
+    text-align: center;
+    color: white;
+}
+
+.mainContent {
+    padding: 12em;
+}
+
+.mainContent > h1{
+    
+    font-size: 4em;
+    font-weight: bold;
+}
+
+
+
+.mainContent > h2 {
+    font-size: 2em;
+}
+
+.mainContent > button {
+    font-size: 2em;
+    margin-top: 1em;
+}

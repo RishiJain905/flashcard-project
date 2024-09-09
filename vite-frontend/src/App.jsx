@@ -1,13 +1,15 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './components/header';
+import Header from './components/header/header';
+import Content from './components/content/content';
 
 function App() {
 
   return (
-    <div className="projectHeader">
+    <>
       <Header />
-    </div>
+      <Content />
+    </>
   )
 }
 
