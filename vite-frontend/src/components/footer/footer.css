@@ -1,0 +1,14 @@
+.footer {
+    background-color: rgb(31, 31, 31);
+    color: white;
+}
+
+.footer > div {
+    text-align: center;
+    margin-top: 2em;
+}
+
+.githubLogo {
+    width: 50px;
+    height: auto;
+}
