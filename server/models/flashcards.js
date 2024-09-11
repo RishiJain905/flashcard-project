@@ -25,4 +25,5 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     return flashcards
+    // check
 };
