@@ -1,1 +1,1 @@
-# flashcard-solo
+# flashcard-project
