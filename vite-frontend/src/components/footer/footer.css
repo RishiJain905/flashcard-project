@@ -1,6 +1,11 @@
 .footer {
     background-color: rgb(31, 31, 31);
     color: white;
+    
+}
+
+.footer > div {
+    max-width: 100vw;
 }
 
 .footer > div {
