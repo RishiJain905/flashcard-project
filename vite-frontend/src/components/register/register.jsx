@@ -33,6 +33,7 @@ function Register({}) {
     initialValues: {
       fname: "",
       lname: "",
+      email: "",
       password: "",
       conPassword: "",
     },
@@ -44,9 +45,10 @@ function Register({}) {
 
   return (
     <Container>
-      <Row className="registerRow">
-        <Col xs={12} md={8} className="registerContainer">
-          <Form onSubmit={formik.handleSubmit} className="registerForm">
+      <Row className="loginRow">
+        <Col xs={12} md={8} className="loginContainer">
+          <Form onSubmit={formik.handleSubmit} className="loginForm">
+            <Form.Title>Register</Form.Title>
             <Row>
               <Col xd={12} md={6}>
                 <Form.Group>
@@ -115,6 +117,11 @@ function Register({}) {
               {toggleValidation && (
                 <span className="error">{formik.errors.conPassword}</span>
               )}
+            </Form.Group>
+            <Form.Group>
+                <Form.Text>
+                    <p>Already have an account? <a href="#">Sign In</a></p>
+                </Form.Text>
             </Form.Group>
             <Button type="submit" variant="dark">
               <button
