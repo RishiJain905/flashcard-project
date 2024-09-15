@@ -21,7 +21,7 @@ export default function Footer({}) {
         </Col>
         <Col md={4}>
           <p>Moiz Mohammad</p>
-          <a href="http://github.com/moizmohammad">
+          <a href="https://github.com/moizm05">
             <img className="githubLogo" src={Github} alt="githubLogo" />
           </a>
         </Col>
