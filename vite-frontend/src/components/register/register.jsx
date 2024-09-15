@@ -48,7 +48,7 @@ function Register({}) {
       <Row className="loginRow">
         <Col xs={12} md={8} className="loginContainer">
           <Form onSubmit={formik.handleSubmit} className="loginForm">
-            <Form.Title>Register</Form.Title>
+            <Form.Label><h2>Register</h2></Form.Label>
             <Row>
               <Col xd={12} md={6}>
                 <Form.Group>
