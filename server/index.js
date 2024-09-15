@@ -1,10 +1,9 @@
-const express = require('express');
+import express from "express";
+import bodyParser from "body-parser";
+import pg from "pg";
+
 const app = express();
+const port = 5000;
 
-const db = require ('./models');
-
-db.sequelize.sync().then(()=>{
-    app.listen(3001, () => {
-        console.log("server running on port 3001");
-    });
-});
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
