@@ -1,0 +1,15 @@
+.sideBar {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sideBar > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.sideBar > div > button {
+    width: fit-content;
+}
