@@ -1,6 +1,7 @@
 import "./register.css";
 import { useFormik } from "formik";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { useState } from "react";
 
@@ -120,7 +121,7 @@ function Register({}) {
             </Form.Group>
             <Form.Group>
                 <Form.Text>
-                    <p>Already have an account? <a href="#">Sign In</a></p>
+                    <p>Already have an account? <Link to="/login">Sign In</Link></p>
                 </Form.Text>
             </Form.Group>
             <Button type="submit" variant="dark">

@@ -2,6 +2,7 @@ import "../register/register.css";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function Login({}) {
@@ -70,7 +71,7 @@ function Login({}) {
                     <a href="#">Forgot Password?</a>
                 </Form.Text>
                 <Form.Text>
-                    <p>Don't have an account? <a href="#">Create One</a></p>
+                    <p>Don't have an account? <Link to="/register">Create One</Link></p>
                 </Form.Text>
             </Form.Group>
             <Button type="submit" variant="dark">

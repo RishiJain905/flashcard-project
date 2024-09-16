@@ -37,7 +37,7 @@ function Content({}) {
             <Button>Get Started</Button>
           </Col>
         </Row>
-        <Container>
+        <Container className="exampleContainer">
           <Row className="examples">
             <Row className="example One" ref={fadeInOne}>
               <Col lg={6} className="exampleUses">
