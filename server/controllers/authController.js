@@ -3,7 +3,6 @@ import bcrypt from "bcryptjs";
 import bodyParser from "body-parser";
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
 
 function checkPassword(password)
 {
@@ -49,7 +48,7 @@ export const userLogin = async(req, res) => {
             return res.status(400).json({message: "Invalid Password"});
         }
 
-        
+
 
     }catch(err){
         console.error(err.message);
