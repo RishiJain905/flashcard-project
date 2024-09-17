@@ -11,21 +11,21 @@ export default function Sidebar({ userInfo }) {
       </div>
 
       <div className="sideBarSets">
-        <Button>Dashboard</Button>
-        <Button>Dashboard</Button>
-        <Button>Dashboard</Button>
-        <Button>Dashboard</Button>
+        <button>Dashboard</button>
+        <button>Dashboard</button>
+        <button>Dashboard</button>
+        <button>Dashboard</button>
         
       </div>
 
       <div className="sideBarActions">
-        <Button>Create Set</Button>
-        <Button>Create Quiz From Set</Button>
+        <button>Create Set</button>
+        <button>Create Quiz From Set</button>
       </div>
 
       <div className="sideBarSettings">
-        <Button>Settings</Button>
-        <Button>Log Out</Button>
+        <button>Settings</button>
+        <button>Log Out</button>
       </div>
     </>
   );
