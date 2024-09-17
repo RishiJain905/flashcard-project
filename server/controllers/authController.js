@@ -1,8 +1,9 @@
 import pool from "../db.js";
 import bcrypt from "bcryptjs";
-import bodyParser from "body-parser";
+import express from "express";
 
-app.use(bodyParser.urlencoded({ extended: true }));
+const app = express();
+app.use(express.urlencoded({ extended: true }));
 
 function checkPassword(password)
 {
