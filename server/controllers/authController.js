@@ -40,7 +40,17 @@ export const registerUser = async(req, res) => {
 export const userLogin = async(req, res) => {
     const {email, password} = req.body;
     try{
+        if(checkEmail(user)){
+            return res.status(400).json({message: "Invalid Email"});
+        }
+        const hashPass = await pool.query("SELECT password FROM users WHERE email = $1", [email]);
+        const check = await bcrypt.compare(password, hashPass);
+        if(!check){
+            return res.status(400).json({message: "Invalid Password"});
+        }
+
         
+
     }catch(err){
         console.error(err.message);
         return res.status(500).json({message: "Server Error"});
