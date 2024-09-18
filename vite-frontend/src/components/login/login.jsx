@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 function Login({}) {
   const [toggleValidation, setToggleValidation] = useState(false);
@@ -19,8 +20,15 @@ function Login({}) {
       check: false,
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: (values, {setSubmitting, resetForm}) => {
+      axios
+        .post("http://localhost:5000/api/auth/login", values)
+        .then((response) => {
+          console.log(response);
+          resetForm();
+        })
+        .catch((err) => console.log(err))
+        .finally(() => setSubmitting(false));
     },
   });
 

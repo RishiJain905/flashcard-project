@@ -13,7 +13,7 @@
     padding: 16em;
 }
 
-.mainContent > h1, .mainContent > h2, .mainContent > button, .animate {
+.mainContent > h1, .mainContent > h2, .mainContent > a, .animate {
     animation-duration: 3s;
     animation-name: fade-in;
     animation-iteration-count: 1;
@@ -33,7 +33,7 @@
     text-align: center;
 }
 
-.mainContent > button {
+.mainContent > a {
     font-size: 2em;
     margin-top: 1em;
 }

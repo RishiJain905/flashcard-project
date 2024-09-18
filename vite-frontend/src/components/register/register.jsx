@@ -4,6 +4,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { useState } from "react";
+import axios from "axios";
 
 function Register({}) {
   const [toggleValidation, setToggleValidation] = useState(false);
@@ -22,7 +23,10 @@ function Register({}) {
         12,
         "Password must be between 8-12 letters long and contain at least 1 Upper Case Letter, 1 Lower Case Letter, 1 Symbol, 1 Number"
       )
-      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/, "Password must be between 8-12 letters long and contain at least 1 Upper Case Letter, 1 Lower Case Letter, 1 Symbol, 1 Number")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/,
+        "Password must be between 8-12 letters long and contain at least 1 Upper Case Letter, 1 Lower Case Letter, 1 Symbol, 1 Number"
+      )
       .required("Password is required"),
     conPassword: yup
       .string()
@@ -39,8 +43,15 @@ function Register({}) {
       conPassword: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: (values, { setSubmitting, resetForm }) => {
+      axios
+        .post("http://localhost:5000/api/auth/register", values)
+        .then((response) => {
+          console.log(response);
+          resetForm();
+        })
+        .catch((err) => console.log(err))
+        .finally(() => setSubmitting(false));
     },
   });
 
@@ -49,7 +60,9 @@ function Register({}) {
       <Row className="loginRow">
         <Col xs={12} md={8} className="loginContainer">
           <Form onSubmit={formik.handleSubmit} className="loginForm">
-            <Form.Label><h2>Register</h2></Form.Label>
+            <Form.Label>
+              <h2>Register</h2>
+            </Form.Label>
             <Row>
               <Col xd={12} md={6}>
                 <Form.Group>
@@ -120,9 +133,11 @@ function Register({}) {
               )}
             </Form.Group>
             <Form.Group>
-                <Form.Text>
-                    <p>Already have an account? <Link to="/login">Sign In</Link></p>
-                </Form.Text>
+              <Form.Text>
+                <p>
+                  Already have an account? <Link to="/login">Sign In</Link>
+                </p>
+              </Form.Text>
             </Form.Group>
             <Button type="submit" variant="dark">
               <button
