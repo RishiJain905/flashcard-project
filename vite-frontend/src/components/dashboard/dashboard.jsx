@@ -1,5 +1,5 @@
 import Sidebar from "./sidebar/sidebar";
-import Content from "./content/content";
+import DashboardContent from "./content/dasboardContent";
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function Dashboard({}) {
@@ -11,7 +11,7 @@ export default function Dashboard({}) {
         />
       </Col>
       <Col>
-        <Content />
+        <DashboardContent />
       </Col>
     </Row>
   );

@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     background-color: rgb(198, 201, 171);
-    padding: 1em;
+    padding: 1em 3em;
     box-sizing: border-box;
     height: 100vh;
 
@@ -36,7 +36,7 @@
 }
 
 .sideBar button {
-    font-size: 1.2em;
+    font-size: 1.1em;
     background-color: transparent;
     border-radius: 0.5em;
     border: 0px;
@@ -55,18 +55,15 @@
     flex-direction: column;
 }
 
-.sideBar div > button {
-    width: fit-content;
-}
-
 .sideBarSets {
-    height: 35vh;
+    max-height: 35vh;
     overflow-y: auto;
-    width: 10em;
+    width: 100%;
+    margin-bottom: 1em;
 }
 
 .sideBarSets > button {
-    min-width: 5em;
+    width: 100%;
 }
 .sideBarSettings {
     width: 100%;

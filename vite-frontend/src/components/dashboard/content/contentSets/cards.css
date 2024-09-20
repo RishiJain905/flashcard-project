@@ -1,0 +1,41 @@
+.dashboardCards {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    overflow-y: auto;
+    padding: 1em;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    column-gap: 1em;
+    row-gap: 1em;
+    
+}
+
+.card {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card > h4 {
+    font-size: 1em;
+}
+
+.cardHandlers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cardHandlers button {
+    font-size: 1.5em;
+    padding: 1em 4em;
+    width:  ;
+}
