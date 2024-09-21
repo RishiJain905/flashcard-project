@@ -3,15 +3,13 @@ import "./cards.css";
 import boxPlus from "/src/assets/boxPlus.svg";
 
 function renderCard(card) {
-    if (card.type = "desc") {
-        return (
-            <div className="card" key={card.id}>
-                <h3>{card.title}</h3>
-                <h4>{card.cardType}</h4>
-                {card.cardType == "flashcard" && <h4 className="cardDescription">{card.description}</h4>}
-            </div>
-        )
-    }
+      return (
+          <div className="card" key={card.id}>
+              <h3>{card.title}</h3>
+              <h4>{card.cardType}</h4>
+              {card.cardType == "flashcard" && <h4 className="cardDescription">{card.description}</h4>}
+          </div>
+      )
 }
 
 export default function Cards({userCards}) {

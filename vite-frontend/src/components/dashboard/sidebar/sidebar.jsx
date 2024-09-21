@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import "./sidebar.css";
 
-export default function Sidebar({ userInfo, setGroupDisplayed, setGroups }) {
+export default function Sidebar({ userInfo, setGroupDisplayed, setGroup }) {
   return (
     <div>
       <div className="userInfo">
@@ -11,7 +11,7 @@ export default function Sidebar({ userInfo, setGroupDisplayed, setGroups }) {
       </div>
 
       <div className="sideBarDashboard">
-        <button onClick={() => setGroups(true)}>Dashboard</button>
+        <button onClick={() => setGroup(true)}>Dashboard</button>
       </div>
 
       <div className="sideBarSets">

@@ -36,6 +36,7 @@ function App() {
 
     groups.push({
       id: groupIds[i],
+      subject: "English",
       title: `Group ${i}`,
       cards: cards,
     });
