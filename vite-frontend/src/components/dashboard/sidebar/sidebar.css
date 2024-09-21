@@ -1,7 +1,7 @@
 .sideBar {
     display: flex;
     justify-content: center;
-    background-color: rgb(198, 201, 171);
+    background-color: rgb(216, 240, 241);
     padding: 1em 3em;
     box-sizing: border-box;
     height: 100vh;
@@ -48,6 +48,7 @@
 
 .sideBar button:hover {
     background-color: rgb(212, 212, 212);
+    transition: background-color 0.5s;
 }
 
 .sideBar div {

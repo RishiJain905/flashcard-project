@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import "./sidebar.css";
 
-export default function Sidebar({ userInfo }) {
+export default function Sidebar({ userInfo, setGroupDisplayed, setGroups }) {
   return (
     <div>
       <div className="userInfo">
@@ -11,22 +11,13 @@ export default function Sidebar({ userInfo }) {
       </div>
 
       <div className="sideBarDashboard">
-        <button>Dashboard</button>
+        <button onClick={() => setGroups(true)}>Dashboard</button>
       </div>
 
       <div className="sideBarSets">
-        <button>Set 1</button>
-        <button>Set 1</button>
-        <button>Set 1</button>
-        <button>Set 1</button>
-        <button>Set 1</button>
-
-        <button>Set 1</button>
-        <button>Set 1</button>
-        <button>Set 1</button>
-        <button>Set 1</button>
-        <button>Set 1</button>
-        <button>Set 1</button>
+        {userInfo.groups.map((group, index) => {
+          return <button key={group.id} onClick={() => setGroupDisplayed(index)}>{group.title}</button>;
+        })}
       </div>
 
       <div className="sideBarActions">
@@ -38,8 +29,6 @@ export default function Sidebar({ userInfo }) {
         <button>Settings</button>
         <button>Log Out</button>
       </div>
-
-      
     </div>
   );
 }

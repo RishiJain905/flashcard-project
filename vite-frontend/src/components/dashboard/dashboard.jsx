@@ -1,17 +1,23 @@
 import Sidebar from "./sidebar/sidebar";
-import DashboardContent from "./content/dasboardContent";
+import Cards from "./content/cards";
 import { Container, Row, Col } from "react-bootstrap";
+import { useState } from "react";
 
-export default function Dashboard({}) {
+export default function Dashboard({userInfo}) {
+  const [groupDisplayed, setGroupDisplayed] = useState(0);
+  const [groups, setGroups] = useState(false);
+
   return (
     <Row>
-      <Col md="auto" className="sideBar">
+      <Col xs="auto" className="sideBar">
         <Sidebar
-          userInfo={{ name: "Asad Mirza", email: "asadbmirza@gmail.com" }}
+          userInfo={userInfo} setGroupDisplayed={setGroupDisplayed}
         />
       </Col>
       <Col>
-        <DashboardContent />
+        {<Cards 
+        userCards={userInfo.groups[groupDisplayed].cards}/>
+        }
       </Col>
     </Row>
   );
