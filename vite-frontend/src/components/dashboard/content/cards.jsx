@@ -1,7 +1,7 @@
 import { Container, Row, Col, Form } from "react-bootstrap";
 import "./cards.css";
 import boxPlus from "/src/assets/boxPlus.svg";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Cards({
   cardsFormik,
@@ -11,6 +11,64 @@ export default function Cards({
   setRenderEdit,
 }) {
   const userCards = userGroups[groupDisplayed].cards;
+
+  // Flashcard Component
+  function Flashcard({ card, index }) {
+    return (
+      <div>
+        <Form.Group>
+          <Form.Label>Card Title:</Form.Label>
+          <Form.Control
+            type="text"
+            name={`userGroups.${groupDisplayed}.cards.${index}.title`}
+            onChange={cardsFormik.handleChange}
+            value={cardsFormik.values?.userGroups[groupDisplayed]?.cards[index]?.title || ""}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            name={`userGroups.${groupDisplayed}.cards.${index}.description`}
+            value={cardsFormik.values?.userGroups[groupDisplayed]?.cards[index]?.description || ""}
+            onChange={cardsFormik.handleChange}
+          />
+        </Form.Group>
+      </div>
+    );
+  }
+
+  // MCQ Component
+  function MCQ({ card, index }) {
+    return (
+      <Form.Group>
+        <Form.Label>Options</Form.Label>
+        {card.options.map((option, optionIndex) => (
+          <Row className="options" key={optionIndex}>
+            <Col>
+              <Form.Control
+                type="input"
+                name={`userGroups.${groupDisplayed}.cards.${index}.options.${optionIndex}`}
+                value={cardsFormik.values?.userGroups[groupDisplayed]?.cards[index]?.options[optionIndex] || ""}
+                onChange={cardsFormik.handleChange}
+              />
+            </Col>
+            <Col>
+              <Form.Check
+                type="radio"
+                name={`userGroups.${groupDisplayed}.cards.${index}.answer`}
+                value={optionIndex}
+                onChange={() => cardsFormik.setFieldValue(`userGroups.${groupDisplayed}.cards.${index}.answer`, optionIndex)}
+                checked={optionIndex === cardsFormik.values?.userGroups[groupDisplayed]?.cards[index]?.answer}
+              />
+            </Col>
+          </Row>
+        ))}
+      </Form.Group>
+    );
+  }
+
+  // Rendering Cards
   function renderCard(card, index) {
     let classes = "card";
     if (renderEdit) classes += " editMode";
@@ -19,9 +77,7 @@ export default function Cards({
         <div className={classes} key={card.id}>
           <h3>{card.title}</h3>
           <h4>{card.cardType}</h4>
-          {card.cardType == "flashcard" && (
-            <h4 className="cardDescription">{card.description}</h4>
-          )}
+          {card.cardType === "flashcard" && <h4 className="cardDescription">{card.description}</h4>}
         </div>
       );
     }
@@ -43,72 +99,10 @@ export default function Cards({
           </Form.Group>
           <h4>{card.cardType}</h4>
         </div>
-        {cardsFormik.values?.userGroups[groupDisplayed]?.cards[index]
-          .cardType == "flashcard" && (
-          <Form.Group>
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              name={`userGroups.${groupDisplayed}.cards.${index}.description`}
-              value={
-                cardsFormik.values?.userGroups[groupDisplayed]?.cards[index]
-                  ?.description || ""
-              }
-              onChange={cardsFormik.handleChange}
-            ></Form.Control>
-          </Form.Group>
-        )}
-        {cardsFormik.values?.userGroups[groupDisplayed]?.cards[index]
-          .cardType != "flashcard" && (
-          <Form.Group>
-            <Form.Label>Options</Form.Label>
-            {card.options.map((option, optionIndex) => {
-              let checked = false;
-              return (
-                <Row className="options" key={optionIndex}>
-                  <Col>
-                    {cardsFormik.values?.userGroups[groupDisplayed]?.cards[
-                      index
-                    ].cardType === "mcq" ? (
-                      <Form.Control
-                        type="input"
-                        name={`userGroups.${groupDisplayed}.cards.${index}.options.${optionIndex}`}
-                        value={
-                          cardsFormik.values?.userGroups[groupDisplayed]?.cards[
-                            index
-                          ]?.options[optionIndex] || ""
-                        }
-                        onChange={cardsFormik.handleChange}
-                      ></Form.Control>
-                    ) : (
-                      <>
-                        <p className="trueFalse">{userGroups[groupDisplayed].cards[index].options[optionIndex]}</p>
-                      </>
-                    )}
-                  </Col>
-                  <Col>
-                    <Form.Check
-                      type="radio"
-                      name={`userGroups.${groupDisplayed}.cards.${index}.answer`}
-                      value={optionIndex}
-                      onChange={(e) => {
-                        cardsFormik.setFieldValue(
-                          `userGroups.${groupDisplayed}.cards.${index}.answer`,
-                          optionIndex
-                        );
-                      }}
-                      checked={
-                        optionIndex ===
-                        cardsFormik.values?.userGroups[groupDisplayed]?.cards[
-                          index
-                        ]?.answer
-                      }
-                    ></Form.Check>
-                  </Col>
-                </Row>
-              );
-            })}
-          </Form.Group>
+        {card.cardType === "flashcard" ? (
+          <Flashcard card={card} index={index} />
+        ) : (
+          <MCQ card={card} index={index} />
         )}
       </div>
     );
