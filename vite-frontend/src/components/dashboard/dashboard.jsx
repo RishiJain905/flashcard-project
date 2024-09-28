@@ -1,12 +1,20 @@
 import Sidebar from "./sidebar/sidebar";
 import Cards from "./content/cards";
 import Sets from "./content/sets";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
+import { useFormik } from "formik";
 import { useState } from "react";
 
 export default function Dashboard({ userInfo }) {
   const [groupDisplayed, setGroupDisplayed] = useState(0);
   const [group, setGroup] = useState(false);
+  const [renderEdit, setRenderEdit] = useState(false);
+
+  const cardsFormik = useFormik({
+    initialValues : {
+      userGroups : userInfo.groups
+    }
+  });
 
   return (
     <Row>
@@ -24,8 +32,24 @@ export default function Dashboard({ userInfo }) {
             setGroup={setGroup}
             setGroupDisplayed={setGroupDisplayed}
           />
+        ) : renderEdit ? (
+          <Form>
+            <Cards
+              cardsFormik={cardsFormik}
+              groupDisplayed={groupDisplayed}
+              setRenderEdit={setRenderEdit}
+              renderEdit={renderEdit}
+              userGroups={userInfo.groups}
+            />
+          </Form>
         ) : (
-          <Cards userCards={userInfo.groups[groupDisplayed].cards} />
+          <Cards
+            cardsFormik={cardsFormik}
+            groupDisplayed={groupDisplayed}
+            setRenderEdit={setRenderEdit}
+            renderEdit={renderEdit}
+            userGroups={userInfo.groups}
+          />
         )}
       </Col>
     </Row>

@@ -123,3 +123,13 @@
     border-radius: 0.5em;
     background-color: red;
 }
+
+.cards.edit{
+    grid-template-columns: 1fr;
+}
+
+.card.editMode {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}

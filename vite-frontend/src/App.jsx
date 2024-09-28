@@ -26,8 +26,8 @@ function App() {
         card.answer = 0;
       } else {
         card.cardType = "t/f";
-        card.options = ["a", "b"];
-        card.answer = 1;
+        card.options = ["True", "False"];
+        card.answer = 0;
       }
       
       cards.push(card);
