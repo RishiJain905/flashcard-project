@@ -8,14 +8,6 @@ import { useState } from "react";
 export default function Dashboard({ userInfo }) {
   const [groupDisplayed, setGroupDisplayed] = useState(0);
   const [group, setGroup] = useState(false);
-  const [renderEdit, setRenderEdit] = useState(false);
-
-  const cardsFormik = useFormik({
-    initialValues : {
-      userGroups : userInfo.groups
-    }
-  });
-
   return (
     <Row>
       <Col xs="auto" className="sideBar">
@@ -32,25 +24,7 @@ export default function Dashboard({ userInfo }) {
             setGroup={setGroup}
             setGroupDisplayed={setGroupDisplayed}
           />
-        ) : renderEdit ? (
-          <Form>
-            <Cards
-              cardsFormik={cardsFormik}
-              groupDisplayed={groupDisplayed}
-              setRenderEdit={setRenderEdit}
-              renderEdit={renderEdit}
-              userGroups={userInfo.groups}
-            />
-          </Form>
-        ) : (
-          <Cards
-            cardsFormik={cardsFormik}
-            groupDisplayed={groupDisplayed}
-            setRenderEdit={setRenderEdit}
-            renderEdit={renderEdit}
-            userGroups={userInfo.groups}
-          />
-        )}
+        ) : <Cards userCards={userInfo.groups[groupDisplayed].cards}/>}
       </Col>
     </Row>
   );

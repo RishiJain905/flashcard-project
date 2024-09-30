@@ -15,6 +15,7 @@ function App() {
       let card = {
         id: cardIds[j],
         title: `Group ${i} Card ${j}`,
+        status: "unchanged",
       };
 
       if (j % 3 === 0) {

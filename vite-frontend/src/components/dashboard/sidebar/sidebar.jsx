@@ -16,7 +16,10 @@ export default function Sidebar({ userInfo, setGroupDisplayed, setGroup }) {
 
       <div className="sideBarSets">
         {userInfo.groups.map((group, index) => {
-          return <button key={group.id} onClick={() => setGroupDisplayed(index)}>{group.title}</button>;
+          return <button key={group.id} onClick={() => {
+            setGroupDisplayed(index)
+            setGroup(false);
+          }}>{group.title}</button>;
         })}
       </div>
 
