@@ -3,11 +3,19 @@ import { useFormik } from "formik";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register({}) {
   const [toggleValidation, setToggleValidation] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem("token")){
+       navigate("/dashboard")
+    };
+  }, [signedIn]);
 
   const validationSchema = yup.object().shape({
     fname: yup.string().required("First name is required"),
@@ -48,6 +56,11 @@ function Register({}) {
         .post("http://localhost:5000/api/auth/register", values)
         .then((response) => {
           console.log(response);
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("fname", JSON.stringify(response.data.user.fname));
+          localStorage.setItem("lname", JSON.stringify(response.data.user.lname));
+          localStorage.setItem("email", JSON.stringify(response.data.user.email));
+          setSignedIn(true);
           resetForm();
         })
         .catch((err) => console.log(err))
