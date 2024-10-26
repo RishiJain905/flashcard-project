@@ -1,5 +1,14 @@
+.error {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 0.5em;
+}
 #root {
   font-family: Poppins, Arial, Helvetica, sans-serif;
   overflow-x: hidden;
 }
+
+
+
+
 

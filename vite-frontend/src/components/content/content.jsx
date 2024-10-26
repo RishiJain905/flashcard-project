@@ -1,5 +1,6 @@
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import "./content.css";
 
 function Content({}) {
@@ -33,11 +34,11 @@ function Content({}) {
         <Row className="blackBackground">
           <Col className="mainContent">
             <h1>The Latest Flashcard App</h1>
-            <h2>Designed by CS Students, For CS Students</h2>
-            <Button>Get Started</Button>
+            <h2>Designed by Students, <br />For Students</h2>
+            <Button as={Link} to="/register">Get Started</Button>
           </Col>
         </Row>
-        <Container>
+        <Container className="exampleContainer">
           <Row className="examples">
             <Row className="example One" ref={fadeInOne}>
               <Col lg={6} className="exampleUses">

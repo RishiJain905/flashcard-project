@@ -1,0 +1,22 @@
+.loginRow {
+    justify-content: center;
+}
+
+.loginContainer {
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px gray;
+    padding: 2em;
+}
+
+.loginForm > button {
+    display: block;
+   margin: 0 auto; 
+   margin-top: 2em
+}  
+
+.dummyButton {
+    background-color: transparent;
+    border: none;
+    color:white;
+}
