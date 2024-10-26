@@ -35,20 +35,22 @@ To run the project locally, clone the repository and install dependencies in bot
    cd flashcard-project
 2. **Install dependencies**:
     Ensure npm is intalled, then run
-    
+    ```bash
     npm run install:all
 3. **Run the application**:
-    npm start
+   ```bash
+   npm start
 
 ### Environmental Variables
 The backend server will require environment variables to connect to a database or handle authentication. Create a .env file in the server directory with the following keys:
 
+```bash
 DB_HOST=<database_host>
 DB_USER=<database_user>
 DB_PASSWORD=<database_password>
 DB_NAME=<database_name>
 JWT_SECRET=<your_jwt_secret>
-
+```
 ### Current Status
 This project is a work in progress, with ongoing work on refining flashcard creation, enhancing user experience, and implementing study modes. Check back for updates!
 
