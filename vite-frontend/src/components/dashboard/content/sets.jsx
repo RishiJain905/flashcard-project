@@ -2,10 +2,12 @@ import { Container, Row, Col, Modal, ModalHeader } from "react-bootstrap";
 import { useState } from "react";
 import { useFormik } from "formik";
 import SetModal from "./setModal";
+import WarningModal from "./warningModal";
 import "./cards.css";
 
 export default function Sets({ userGroups, setGroup, setGroupDisplayed, groupsFormik }) {
   const [show, setShow] = useState(false);
+  const [deleet, setDeleet] = useState(false);
   
   return (
     <>
@@ -41,10 +43,11 @@ export default function Sets({ userGroups, setGroup, setGroupDisplayed, groupsFo
             </svg>
             Create A New Set
           </button>
-          <button className="deleteButton">Delete A Set</button>
+          <button className="deleteButton" onClick={() => setDeleet(true)}>Delete A Set</button>
         </div>
       </div>
       <SetModal show={show} setShow={setShow} groupsFormik={groupsFormik}/>
+      <WarningModal show={deleet} setShow={setDeleet} groupsFormik={groupsFormik}/>
     </>
   );
 }
