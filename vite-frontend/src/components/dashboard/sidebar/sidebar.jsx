@@ -1,9 +1,14 @@
 import { Button } from "react-bootstrap";
 import "./sidebar.css";
 import { useState } from "react";
-import SetModal from "../content/setModal";
+import SetModal from "../modals/setModal";
 
-export default function Sidebar({ userInfo, setGroupDisplayed, setGroup, groupsFormik }) {
+export default function Sidebar({
+  userInfo,
+  setGroupDisplayed,
+  setGroup,
+  groupsFormik,
+}) {
   const [show, setShow] = useState(false);
   return (
     <>

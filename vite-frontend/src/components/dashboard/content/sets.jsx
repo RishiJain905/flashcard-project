@@ -1,14 +1,22 @@
 import { Container, Row, Col, Modal, ModalHeader } from "react-bootstrap";
 import { useState } from "react";
 import { useFormik } from "formik";
-import SetModal from "./setModal";
-import WarningModal from "./warningModal";
+import deleteButton from "/src/assets/delete-circle-outline.svg";
+import SetModal from "../modals/setModal";
+import WarningModal from "../modals/warningModal";
 import "./cards.css";
 
-export default function Sets({ userGroups, setGroup, setGroupDisplayed, groupsFormik }) {
+export default function Sets({
+  userGroups,
+  setGroup,
+  setGroupDisplayed,
+  groupsFormik,
+}) {
   const [show, setShow] = useState(false);
+  const [trash, showTrash] = useState(false);
   const [deleet, setDeleet] = useState(false);
-  
+  const [deleteIndex, setDeleteIndex] = useState(0);
+  console.log(trash);
   return (
     <>
       <div className="dashboardSets">
@@ -21,11 +29,24 @@ export default function Sets({ userGroups, setGroup, setGroupDisplayed, groupsFo
                 onClick={() => {
                   setGroupDisplayed(index);
                   setGroup(false);
+                  setDeleteIndex(index);
                 }}
               >
                 <h3>{group.title}</h3>
                 <h4>{group.subject}</h4>
                 <h4>{group.cards.length} Cards</h4>
+                {trash && (
+                  <img
+                    src={deleteButton}
+                    className="deleteSet"
+                    alt="delete"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDeleteIndex(index);
+                      setDeleet(true);
+                    }}
+                  />
+                )}
               </div>
             );
           })}
@@ -43,11 +64,25 @@ export default function Sets({ userGroups, setGroup, setGroupDisplayed, groupsFo
             </svg>
             Create A New Set
           </button>
-          <button className="deleteButton" onClick={() => setDeleet(true)}>Delete A Set</button>
+          {!trash && (
+            <button className="deleteButton" onClick={() => showTrash(true)}>
+              Delete A Set
+            </button>
+          )}
+          {trash && (
+            <button className="deleteButton" onClick={() => showTrash(false)}>
+              Cancel
+            </button>
+          )}
         </div>
       </div>
-      <SetModal show={show} setShow={setShow} groupsFormik={groupsFormik}/>
-      <WarningModal show={deleet} setShow={setDeleet} groupsFormik={groupsFormik}/>
+      <SetModal show={show} setShow={setShow} groupsFormik={groupsFormik} />
+      <WarningModal
+        show={deleet}
+        setShow={setDeleet}
+        groupsFormik={groupsFormik}
+        index={deleteIndex}
+      />
     </>
   );
 }

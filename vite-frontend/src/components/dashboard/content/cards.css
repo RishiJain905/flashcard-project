@@ -149,6 +149,14 @@
     background-color: rgb(40, 172, 22);
 }
 
+.deleteSet {
+    fill: red;
+    cursor: pointer;
+    width: 20%;
+    height: auto;
+
+}
+
 .cards.edit{
     grid-template-columns: 1fr;
 }
@@ -159,10 +167,3 @@
     justify-content: space-between;
 }
 
-.chooseCardType {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
-    padding: 1em;
-}

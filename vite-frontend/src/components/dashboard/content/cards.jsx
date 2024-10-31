@@ -11,6 +11,8 @@ import "./cards.css";
 import boxPlus from "/src/assets/boxPlus.svg";
 import { useState, useEffect, memo, useCallback } from "react";
 import { useFormik } from "formik";
+import CardModal from "../modals/newCardModal";
+import QuizModal from "../modals/quizModal";
 
 // Flashcard Component
 const Flashcard = memo(({ card, index, cardsFormik, handleChange }) => {
@@ -99,7 +101,9 @@ function CardsFormat({
   handleCreate,
   handleDelete,
 }) {
-  const [show, setShow] = useState(false);
+  const [showCardModal, setShowCardModal] = useState(false);
+  const [showQuizModal, setShowQuizModal] = useState(false);
+
   const handleChange = useCallback(
     (e, index) => {
       const { name, value } = e.target;
@@ -187,7 +191,7 @@ function CardsFormat({
               <button
                 className="createButton"
                 type="button"
-                onClick={() => setShow(true)}
+                onClick={() => setShowCardModal(true)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +205,7 @@ function CardsFormat({
               </button>
             </div>
           ) : (
-            <button className="editButton" onClick={() => setRenderEdit(true)}>
+            <button type="button" className="editButton" onClick={() => setRenderEdit(true)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -213,28 +217,11 @@ function CardsFormat({
               Edit/Create Flashcards
             </button>
           )}
-          <button className="quizButton">Quiz Yourself</button>
+          <button type="button" className="quizButton" onClick={() => setShowQuizModal(true)}>Quiz Yourself</button>
         </div>
       </div>
-      <Modal show={show} onHide={() => setShow(false)}>
-        <ModalHeader closeButton>
-          <h3>Choose Card Type</h3>
-        </ModalHeader>
-        <Form
-          className="chooseCardType"
-          onSubmit={(e) => {
-            handleCreate(e);
-            setShow(false);
-          }}
-        >
-          <Form.Control as="select">
-            <option value="flashcard">Flashcard</option>
-            <option value="mcq">MCQ</option>
-            <option value="t/f">True/False</option>
-          </Form.Control>
-          <Button type="submit">Submit</Button>
-        </Form>
-      </Modal>
+      <CardModal show={showCardModal} setShow={setShowCardModal} handleCreate={handleCreate}/>
+      <QuizModal show={showQuizModal} setShow={setShowQuizModal} cardsFormik={cardsFormik} onSubmit={() => console.log("hi")}/>
     </>
   );
 }
