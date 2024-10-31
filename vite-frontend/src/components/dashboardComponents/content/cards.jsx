@@ -8,7 +8,6 @@ import {
   Button,
 } from "react-bootstrap";
 import "./cards.css";
-import boxPlus from "/src/assets/boxPlus.svg";
 import { useState, useEffect, memo, useCallback } from "react";
 import { useFormik } from "formik";
 import CardModal from "../modals/newCardModal";
@@ -95,7 +94,6 @@ const MCQ = memo(({ card, index, cardsFormik, handleChange }) => {
 
 function CardsFormat({
   cardsFormik,
-  userCards,
   renderEdit,
   setRenderEdit,
   handleCreate,
@@ -115,16 +113,14 @@ function CardsFormat({
 
   // Rendering Cards
   function renderCard(card, index) {
-    let classes = "card";
+    let classes = "card " + card.mastery;
     if (renderEdit) classes += " editMode";
     if (!renderEdit) {
       return (
         <div className={classes} key={card.id}>
           <h3>{card.title}</h3>
           <h4>{card.cardType}</h4>
-          {card.cardType === "flashcard" && (
-            <h4 className="cardDescription">{card.description}</h4>
-          )}
+          <h4>{card.mastery}</h4>
         </div>
       );
     }
@@ -138,6 +134,7 @@ function CardsFormat({
               name={`userCards.${index}.title`}
               onChange={(e) => handleChange(e, index)}
               value={cardsFormik.values?.userCards[index]?.title || ""}
+              maxLength="50"
             ></Form.Control>
           </Form.Group>
           <h4>{card.cardType}</h4>
@@ -221,12 +218,12 @@ function CardsFormat({
         </div>
       </div>
       <CardModal show={showCardModal} setShow={setShowCardModal} handleCreate={handleCreate}/>
-      <QuizModal show={showQuizModal} setShow={setShowQuizModal} cardsFormik={cardsFormik} onSubmit={() => console.log("hi")}/>
+      <QuizModal show={showQuizModal} setShow={setShowQuizModal} cardsFormik={cardsFormik} />
     </>
   );
 }
 
-export default function Cards({ userCards, forceRender }) {
+export default function Cards({ cardsFormik }) {
   const [renderEdit, setRenderEdit] = useState(false);
   function handleCreate(e) {
     e.preventDefault();
@@ -236,6 +233,7 @@ export default function Cards({ userCards, forceRender }) {
       title: "",
       cardType: cardType,
       status: "new",
+      mastery: "novice"
     };
     if (cardType === "flashcard") {
       newCard.description = "";
@@ -246,12 +244,8 @@ export default function Cards({ userCards, forceRender }) {
       newCard.options = ["True", "False"];
       newCard.answer = 0;
     }
+    cardsFormik.setFieldValue("userCards", [...cardsFormik.values.userCards, newCard]);
 
-    cardsFormik.setFieldValue("userCards", [
-      ...cardsFormik.values.userCards,
-      newCard,
-    ]);
-    return;
   }
   function handleDelete(e, index) {
     const currentCards = [...cardsFormik.values.userCards];
@@ -262,18 +256,10 @@ export default function Cards({ userCards, forceRender }) {
     cardsFormik.setFieldValue("userCards", newCards);
   }
 
-  const cardsFormik = useFormik({
-    initialValues: {
-      userCards: userCards,
-    },
-    enableReinitialize: true,
-  });
-  console.log(JSON.stringify(cardsFormik.values.userCards));
   return renderEdit ? (
     <Form>
       <CardsFormat
         cardsFormik={cardsFormik}
-        userCards={userCards}
         setRenderEdit={setRenderEdit}
         renderEdit={renderEdit}
         handleCreate={handleCreate}
@@ -284,7 +270,6 @@ export default function Cards({ userCards, forceRender }) {
     <>
       <CardsFormat
         cardsFormik={cardsFormik}
-        userCards={userCards}
         setRenderEdit={setRenderEdit}
         renderEdit={renderEdit}
       />

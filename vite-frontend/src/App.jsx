@@ -1,21 +1,26 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Dashboard from "./components/dashboard/dashboard";
+import Dashboard from "./pages/dashboard";
 
 function App() {
   //Testing Groups
   const groups = [];
-  const groupIds = Array.from({ length: 10 }, () => Math.floor(Math.random() * 10000000000000));
+  const groupIds = Array.from({ length: 10 }, () =>
+    Math.floor(Math.random() * 10000000000000)
+  );
 
   for (let i = 0; i < 10; i++) {
     let cards = [];
-    let cardIds = Array.from({ length: 10 }, () => Math.floor(Math.random() * 1000000000000));
+    let cardIds = Array.from({ length: 10 }, () =>
+      Math.floor(Math.random() * 1000000000000)
+    );
 
     for (let j = 0; j < 10; j++) {
       let card = {
         id: cardIds[j],
         title: `Group ${i} Card ${j}`,
         status: "unchanged",
+        mastery: "novice",
       };
 
       if (j % 3 === 0) {
@@ -30,10 +35,9 @@ function App() {
         card.options = ["True", "False"];
         card.answer = 0;
       }
-      
+
       cards.push(card);
     }
-
 
     groups.push({
       id: groupIds[i],
@@ -42,8 +46,6 @@ function App() {
       cards: cards,
     });
   }
-
-
 
   const userInfo = {
     name: "Asad Mirza",
