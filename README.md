@@ -36,10 +36,10 @@ To run the project locally, clone the repository and install dependencies in bot
 2. **Install dependencies**:
     Ensure npm is intalled, then run
     ```bash
-    npm run install:all
-3. **Run the application**:
-   ```bash
-   npm start
+    cd ./vite-frontend
+    npm run dev
+    cd ../server
+    node --watch app.js
 
 ### Environmental Variables
 The backend server will require environment variables to connect to a database or handle authentication. Create a .env file in the server directory with the following keys:
