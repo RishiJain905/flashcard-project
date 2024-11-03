@@ -2,9 +2,10 @@ import Sidebar from "../components/dashboardComponents/sidebar/sidebar";
 import Cards from "../components/dashboardComponents/content/cards";
 import Sets from "../components/dashboardComponents/content/sets";
 import Quiz from "./quiz";
-import { Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { useFormik } from "formik";
 import { useState, createContext } from "react";
+import { addIndex } from "../helperFunctions/filterCards";
 const QuizContext = createContext();
 export { QuizContext };
 
@@ -12,9 +13,13 @@ export default function Dashboard({ userInfo }) {
   const [groupDisplayed, setGroupDisplayed] = useState(0);
   const [group, setGroup] = useState(false);
 
+  //For the sidebar
+  const [isOpen, setIsOpen] = useState(false);
+
   //For the quiz
   const [displayQuiz, setDisplayQuiz] = useState(false);
   const [quizFilters, setQuizFilters] = useState({});
+  const [filteredCards, setFilteredCards] = useState([]);
 
   const groupsFormik = useFormik({
     initialValues: {
@@ -27,8 +32,9 @@ export default function Dashboard({ userInfo }) {
     },
     enableReinitialize: true,
   });
-
-  console.log(groupDisplayed);
+  const toggleSidebar = () => { 
+    setIsOpen(!isOpen);
+  }
   return (
     <QuizContext.Provider
       value={{
@@ -36,21 +42,28 @@ export default function Dashboard({ userInfo }) {
         setDisplayQuiz,
         quizFilters,
         setQuizFilters,
+        filteredCards,
+        setFilteredCards,
       }}
     >
       <Row>
         {displayQuiz ? (
-          <Quiz cardsFormik={cardsFormik}/>
+          <Quiz cardsFormik={cardsFormik} />
         ) : (
           <>
-            <Col xs="auto" className="sideBar">
+            <Col xs="auto" className={`sideBar ${isOpen ? "open" : ""}`}>
               <Sidebar
                 userInfo={userInfo}
                 setGroupDisplayed={setGroupDisplayed}
                 setGroup={setGroup}
                 groupsFormik={groupsFormik}
+
               />
+
             </Col>
+            <button className="hamburger" onClick={toggleSidebar}>
+                ☰
+              </button>
             <Col>
               {group ? (
                 <Sets

@@ -1,5 +1,5 @@
 import { Modal } from "react-bootstrap";
-import "./modal.css";
+import "../../styles/modal.css";
 
 export default function WarningModal({ show, setShow, groupsFormik, index }) {
     const deleteGroup = () => {

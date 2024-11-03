@@ -1,5 +1,5 @@
 import { Modal, Button, Container, Row, Col, Form } from "react-bootstrap";
-import "./modal.css";
+import "../../styles/modal.css";
 
 
 export default function SetModal({ show, setShow, groupsFormik }) {

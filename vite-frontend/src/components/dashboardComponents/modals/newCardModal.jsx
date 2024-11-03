@@ -1,5 +1,5 @@
 import {Modal, Form, Button} from "react-bootstrap";
-import "./modal.css";
+import "../../styles/modal.css";
 
 export default function CardModal({ show, setShow, handleCreate }) {
     return (

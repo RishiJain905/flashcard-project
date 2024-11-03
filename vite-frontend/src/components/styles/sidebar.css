@@ -5,7 +5,43 @@
     padding: 1em 3em;
     box-sizing: border-box;
     height: 100vh;
+    transition: transform 0.3s ease;
+    transform: translateX(0);
+    z-index: 1000;
 
+}
+
+.sideBar.close {
+    transform: translateX(-300px);
+}
+.hamburger {
+    font-size: 24px;
+    position: fixed;
+    width: 40px;
+    top: 20px;
+    right: 30px;
+    background: rgb(56, 51, 51);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    display: none; 
+    z-index: 1200; 
+}
+
+@media (max-width: 768px) {
+    .sideBar {
+        position: fixed;
+        transform: translateX(-300px);
+    }
+
+    
+    .sideBar.open {
+        transform: translateX(0);
+    }
+    .hamburger {
+        display: block;
+    }
 }
 
 .sideBar > div {

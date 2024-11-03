@@ -1,5 +1,5 @@
 import { Button } from "react-bootstrap";
-import "./sidebar.css";
+import "../../styles/sidebar.css";
 import { useState } from "react";
 import SetModal from "../modals/setModal";
 
@@ -8,10 +8,13 @@ export default function Sidebar({
   setGroupDisplayed,
   setGroup,
   groupsFormik,
+
 }) {
   const [show, setShow] = useState(false);
+ 
   return (
     <>
+      
       <div>
         <div className="userInfo">
           <div className="pfp"></div>
@@ -41,14 +44,13 @@ export default function Sidebar({
 
         <div className="sideBarActions">
           <button onClick={() => setShow(true)}>Create Set</button>
-          <button>Create Quiz From Set</button>
         </div>
 
         <div className="sideBarSettings">
           <button>Log Out</button>
         </div>
       </div>
-
+      
       <SetModal show={show} setShow={setShow} groupsFormik={groupsFormik} />
     </>
   );

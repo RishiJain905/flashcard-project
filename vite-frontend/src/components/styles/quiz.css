@@ -1,0 +1,95 @@
+.quizPage {
+    text-align: center;
+}
+
+.quizRow {
+    margin: 1em 0;
+}
+
+.quizCardCol {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quizCard {
+
+    height: 70%;
+    border: 1px solid black;
+    padding: 1em;
+    text-align: center;
+    color: white;
+    border: 3px solid white;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1em;
+
+    transition: transform 0.5s ease;
+    position: absolute;
+    max-width: 50%;
+}
+
+@media (max-width: 768px) {
+    .quizCard {
+        max-width: 90%;
+    }
+}
+
+.quizCard > .row > .col  {
+    margin-top: 1em;
+}
+
+
+.quizIconCol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quizIconCol > button {
+    background-color: transparent;
+    border: 0px;
+}
+
+
+
+.answerButton {
+    background-color: transparent;
+    border: 2px solid black;
+    color: white;
+    border-radius: 1em;
+    font-size: 1.5em;
+    width: 100%;
+    height: 100%;
+    padding: 0.5em;
+}
+
+.answerButton:hover {
+    background-color: rgb(78, 91, 92);
+    transition: background-color 0.5s;
+}
+
+.answerButton.answerCorrect {
+    background-color: rgb(45, 184, 91);
+    transition: background-color 0.5s;
+}
+
+.answerButton.answerIncorrect {
+    background-color: rgb(194, 73, 73);
+    transition: background-color 0.5s;
+}
+
+.slide-out-left {
+    transform: translateX(-200%);
+  }
+  
+  .slide-in-right {
+    transform: translateX(200%);
+  }
+  
+  .slide-reset {
+    transform: translateX(0);
+  }

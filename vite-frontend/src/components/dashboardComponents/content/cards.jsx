@@ -7,7 +7,7 @@ import {
   ModalHeader,
   Button,
 } from "react-bootstrap";
-import "./cards.css";
+import "../../styles/cards.css";
 import { useState, useEffect, memo, useCallback } from "react";
 import { useFormik } from "formik";
 import CardModal from "../modals/newCardModal";

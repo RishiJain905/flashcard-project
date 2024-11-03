@@ -27,6 +27,12 @@
     text-align: center;
 }
 
+.card {
+    color: white;
+    border: 3px solid white;
+    border-radius: 1em;
+}
+
 .set {
     border-radius: 1em;
     transition: background-color 0.5s;
@@ -46,25 +52,21 @@
     font-size: 1em;
 }
 
-.card.mastered {
+.mastered {
     background-color: rgb(45, 184, 91);
-    color: white;
-    border: 3px solid white;
-    border-radius: 1em;
+    transition: background-color 0.5s;
+
 }
 
-.card.intermediate {
-    background-color: rgb(183, 209, 37);
-    color: white;
-    border: 3px solid white;
-    border-radius: 1em;
+.intermediate {
+    background-color: rgb(230, 208, 84);
+    transition: background-color 0.5s;
+
 }
 
-.card.novice {
+.novice {
     background-color: rgb(197, 96, 96);
-    color: white;
-    border: 3px solid white;
-    border-radius: 1em;
+    transition: background-color 0.5s;
 }
 
 .cardDescrtiption {

@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import deleteButton from "/src/assets/delete-circle-outline.svg";
 import SetModal from "../modals/setModal";
 import WarningModal from "../modals/warningModal";
-import "./cards.css";
+import "../../styles/cards.css";
 
 export default function Sets({
   userGroups,

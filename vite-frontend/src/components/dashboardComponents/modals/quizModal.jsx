@@ -1,14 +1,15 @@
 import { Modal, Form, Button } from "react-bootstrap";
-import "./modal.css";
+import "../../styles/modal.css";
 import { useState, useContext } from "react";
 import { QuizContext } from "../../../pages/dashboard";
+import { addIndex, randomizeCards, filterCards } from "../../../helperFunctions/filterCards";
 
 export default function QuizModal({ show, setShow, cardsFormik }) {
   const {
     displayQuiz,
     setDisplayQuiz,
-    quizFilters,
     setQuizFilters,
+    setFilteredCards,
   } = useContext(QuizContext);
 
   const [check, setCheck] = useState([true, true, true]);
@@ -34,11 +35,23 @@ export default function QuizModal({ show, setShow, cardsFormik }) {
   }
   function onSubmit(e) {
     e.preventDefault();
-    setQuizFilters({
+    const quizFilters ={
       maxCards: e.target[0].value,
       timeLimit: e.target[1].value,
       mastery: [check[0] && "mastered", check[1] && "intermediate", check[2] && "novice"].filter(Boolean),
-    });
+    };
+    let newCards = addIndex(cardsFormik.values.userCards);
+    console.log(newCards, cardsFormik.values.userCards);
+    randomizeCards(newCards);
+    newCards = filterCards(newCards, quizFilters);
+    
+    if (newCards.length === 0) {
+      alert("No cards meet the criteria");
+      return;
+    }
+
+    setQuizFilters(quizFilters);
+    setFilteredCards(newCards);
     setShow(false);
     setDisplayQuiz(true);
   }
