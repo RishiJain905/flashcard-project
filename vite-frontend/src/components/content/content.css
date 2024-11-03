@@ -1,0 +1,103 @@
+
+
+.blackBackground {
+    background-color: black;
+}
+
+.mainContent > *, .mainContent {
+    text-align: center;
+    color: white;
+}
+
+.mainContent {
+    padding: 16em;
+}
+
+.mainContent > h1, .mainContent > h2, .mainContent > a, .animate {
+    animation-duration: 3s;
+    animation-name: fade-in;
+    animation-iteration-count: 1;
+}
+
+.content h1{
+    
+    font-size: 4em;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+
+.content h2 {
+    font-size: 2em;
+    text-align: center;
+}
+
+.mainContent > a {
+    font-size: 2em;
+    margin-top: 1em;
+}
+
+.examples {
+    justify-content: center;
+}
+
+.example {
+    padding: 5em 0;
+}
+
+.example > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.exampleUses * {
+    max-width: fit-content;
+}
+
+.exampleUses > h2, .exampleUses > h3 {
+    text-align: center;
+}
+.exampleUses > h2 {
+    font-size: 3em;
+}
+.exampleUses > h3, .exampleUses > ul > li {
+    font-size: 1.5em;
+    color: gray;
+}
+
+
+.imagePlace {
+    background-color: gray;
+    width: min(400px, 80vw);
+
+    height: 200px;
+}
+
+
+
+@keyframes fade-in {
+    from {
+        opacity: 0%;
+        transform: translateY(2em);
+    }
+
+    to {
+        opacity: 100%;
+        transform: translateY(0);
+    }
+}
+
+@media (min-width: 768px) {
+    .content {
+        width: 100%;
+    }
+    
+}
+
+@media (max-width: 768px) {
+    .exampleContainer {
+        max-width: 100vw;
+    }
+}

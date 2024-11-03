@@ -1,0 +1,13 @@
+{
+  "name": "flashcard-project",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install --prefix frontend && npm install --prefix server",
+    "start": "concurrently \"npm run start --prefix frontend\" \"npm run start --prefix server\"",
+    "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix server\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}
