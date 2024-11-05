@@ -6,7 +6,7 @@ import { mdiArrowLeftBoldBoxOutline } from "@mdi/js";
 import { useState } from "react";
 import "../styles/cards.css";
 
-export default function QuizFlashcard({ className, card, back, setBack, cardsFormik }) {
+export default function QuizFlashcard({ className, card, back, setBack, setFieldValue, groupPath }) {
   const flip = () => {
     setBack(!back);
   };
@@ -23,9 +23,9 @@ export default function QuizFlashcard({ className, card, back, setBack, cardsFor
         ? (card.mastery = "intermediate")
         : (card.mastery = "novice");
     }
-    cardsFormik.setFieldValue(`userCards.${card.index}.mastery`, card.mastery);
     card.status = "updated";
-    cardsFormik.setFieldValue(`userCards.${card.index}.status`, card.status);
+    setFieldValue(`${groupPath}.${card.index}.mastery`, card.mastery);
+    setFieldValue(`${groupPath}.${card.index}.status`, card.status);
     card.answered = true;
     card.correct = isCorrect;
     setBack(!back);

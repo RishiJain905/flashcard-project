@@ -5,7 +5,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { register } from "../../helperFunctions/axiosRequests";
 
 function Login({}) {
   const [toggleValidation, setToggleValidation] = useState(false);
@@ -30,23 +30,20 @@ function Login({}) {
       check: false,
     },
     validationSchema: validationSchema,
-    onSubmit: (values, {setSubmitting, resetForm}) => {
-      axios
-        .post("http://localhost:5000/api/auth/login", values)
-        .then((response) => {
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("fname", JSON.stringify(response.data.user.fname));
-          localStorage.setItem("lname", JSON.stringify(response.data.user.lname));
-          localStorage.setItem("email", JSON.stringify(response.data.user.email));
-          console.log(localStorage.getItem("token"));
-          console.log(localStorage.getItem("email"));
-          setSignedIn(true);
-
-          resetForm();
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setSubmitting(false));
-    },      
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
+      
+      try {
+        await axiosMethods.register(values, "login");
+        setSignedIn(true);
+        resetForm();
+      } catch(err) {
+        console.log(err);
+      } finally {
+        setSubmitting(false);
+      }
+      
+      
+    },     
   });
 
   return (

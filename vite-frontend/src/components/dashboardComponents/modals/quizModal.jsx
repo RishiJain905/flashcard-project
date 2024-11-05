@@ -14,7 +14,7 @@ export default function QuizModal({ show, setShow, cardsFormik }) {
 
   const [check, setCheck] = useState([true, true, true]);
   const [checkLength, setCheckLength] = useState(3);
-  const length = cardsFormik.values.userCards.length;
+  const length = cardsFormik.length;
 
   function toggleCheck(e) {
     console.log(e.target.checked, checkLength);
@@ -40,8 +40,8 @@ export default function QuizModal({ show, setShow, cardsFormik }) {
       timeLimit: e.target[1].value,
       mastery: [check[0] && "mastered", check[1] && "intermediate", check[2] && "novice"].filter(Boolean),
     };
-    let newCards = addIndex(cardsFormik.values.userCards);
-    console.log(newCards, cardsFormik.values.userCards);
+    let newCards = addIndex(cardsFormik);
+    console.log(newCards, cardsFormik);
     randomizeCards(newCards);
     newCards = filterCards(newCards, quizFilters);
     

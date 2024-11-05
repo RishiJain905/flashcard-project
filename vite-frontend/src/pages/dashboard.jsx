@@ -4,14 +4,15 @@ import Sets from "../components/dashboardComponents/content/sets";
 import Quiz from "./quiz";
 import { Container, Row, Col } from "react-bootstrap";
 import { useFormik } from "formik";
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { addIndex } from "../helperFunctions/filterCards";
+
 const QuizContext = createContext();
 export { QuizContext };
 
-export default function Dashboard({ userInfo }) {
+export default function Dashboard({ }) {
   const [groupDisplayed, setGroupDisplayed] = useState(0);
-  const [group, setGroup] = useState(false);
+  const [group, setGroup] = useState(true);
 
   //For the sidebar
   const [isOpen, setIsOpen] = useState(false);
@@ -26,15 +27,10 @@ export default function Dashboard({ userInfo }) {
       userGroups: userInfo.groups,
     },
   });
-  const cardsFormik = useFormik({
-    initialValues: {
-      userCards: groupsFormik.values.userGroups[groupDisplayed].cards,
-    },
-    enableReinitialize: true,
-  });
-  const toggleSidebar = () => { 
+
+  const toggleSidebar = () => {
     setIsOpen(!isOpen);
-  }
+  };
   return (
     <QuizContext.Provider
       value={{
@@ -48,7 +44,13 @@ export default function Dashboard({ userInfo }) {
     >
       <Row>
         {displayQuiz ? (
-          <Quiz cardsFormik={cardsFormik} />
+          <Quiz
+            cardsFormik={groupsFormik.values.userGroups[groupDisplayed].cards}
+            setFieldValue={groupsFormik.setFieldValue}
+            groupPath={`userGroups.${groupDisplayed}.cards`}
+            groupsFormik={groupsFormik}
+            groupDisplayed={groupDisplayed}
+          />
         ) : (
           <>
             <Col xs="auto" className={`sideBar ${isOpen ? "open" : ""}`}>
@@ -56,24 +58,33 @@ export default function Dashboard({ userInfo }) {
                 userInfo={userInfo}
                 setGroupDisplayed={setGroupDisplayed}
                 setGroup={setGroup}
+
                 groupsFormik={groupsFormik}
-
+                groupDisplayed={groupDisplayed}
               />
-
             </Col>
             <button className="hamburger" onClick={toggleSidebar}>
-                ☰
-              </button>
+              ☰
+            </button>
             <Col>
               {group ? (
                 <Sets
                   userGroups={userInfo.groups}
                   setGroup={setGroup}
+                  groupDisplayed={groupDisplayed}
                   setGroupDisplayed={setGroupDisplayed}
                   groupsFormik={groupsFormik}
+                
                 />
               ) : (
-                <Cards cardsFormik={cardsFormik} />
+                <Cards
+                  cardsFormik={
+                    groupsFormik.values.userGroups[groupDisplayed]?.cards || []
+                  }
+                  groupPath={`userGroups.${groupDisplayed}.cards`}
+                  groupsFormik={groupsFormik}
+                  groupDisplayed={groupDisplayed}
+                />
               )}
             </Col>
           </>

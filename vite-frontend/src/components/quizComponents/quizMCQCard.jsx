@@ -6,7 +6,7 @@ import { mdiArrowLeftBoldBoxOutline } from "@mdi/js";
 import { useRef, useState } from "react";
 
 
-export default function QuizMCQCard({ className, card, back, setBack, cardsFormik}) {
+export default function QuizMCQCard({ className, card, back, setBack, setFieldValue, groupPath }) {
   const [refresher, setRefresher] = useState(false);
   
   const flip = () => {
@@ -28,8 +28,8 @@ export default function QuizMCQCard({ className, card, back, setBack, cardsFormi
     }
     card.status = "updated";
     card.answered = true;
-    cardsFormik.setFieldValue(`userCards.${card.index}.mastery`, card.mastery);
-    cardsFormik.setFieldValue(`userCards.${card.index}.status`, card.status);
+    setFieldValue(`${groupPath}.${card.index}.mastery`, card.mastery);
+    setFieldValue(`${groupPath}.${card.index}.status`, card.status);
     setRefresher(!refresher);
   };
 

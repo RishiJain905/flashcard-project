@@ -4,7 +4,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { register } from "../../helperFunctions/axiosRequests";
 import { useNavigate } from "react-router-dom";
 
 function Register({}) {
@@ -51,20 +51,19 @@ function Register({}) {
       conPassword: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values, { setSubmitting, resetForm }) => {
-      axios
-        .post("http://localhost:5000/api/auth/register", values)
-        .then((response) => {
-          console.log(response);
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("fname", JSON.stringify(response.data.user.fname));
-          localStorage.setItem("lname", JSON.stringify(response.data.user.lname));
-          localStorage.setItem("email", JSON.stringify(response.data.user.email));
-          setSignedIn(true);
-          resetForm();
-        })
-        .catch((err) => console.log(err))
-        .finally(() => setSubmitting(false));
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
+      
+      try {
+        await axiosMethods.register(values, "register");
+        setSignedIn(true);
+        resetForm();
+      } catch(err) {
+        console.log(err);
+      } finally {
+        setSubmitting(false);
+      }
+      
+      
     },
   });
 

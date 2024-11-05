@@ -1,9 +1,9 @@
 import { Modal, Button, Container, Row, Col, Form } from "react-bootstrap";
 import "../../styles/modal.css";
-
+import { postGroup } from "../../../helperFunctions/axiosRequests";
 
 export default function SetModal({ show, setShow, groupsFormik }) {
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const title = e.target[0].value;
     const subject = e.target[1].value;
@@ -12,14 +12,21 @@ export default function SetModal({ show, setShow, groupsFormik }) {
       id: Date.now(),
       title: title,
       subject: subject,
+      status: "new",
       cards: [],
     };
-    console.log("Before: " +  JSON.stringify(groupsFormik.values.userGroups));
-    groupsFormik.setFieldValue("userGroups", [
+    console.log("Before: " + JSON.stringify(groupsFormik.values.userGroups));
+    const data = await postGroup(newGroup);
+    if (data) {
+      newGroup.id = data.id;
+      newGroup.status = "old";
+    }
+    await groupsFormik.setFieldValue("userGroups", [
       ...groupsFormik.values.userGroups,
       newGroup,
     ]);
-    console.log("After: " +  JSON.stringify(groupsFormik.values.userGroups));
+
+    console.log("After: " + JSON.stringify(groupsFormik.values.userGroups));
     setShow(false);
   };
 

@@ -4,11 +4,13 @@ import { useFormik } from "formik";
 import deleteButton from "/src/assets/delete-circle-outline.svg";
 import SetModal from "../modals/setModal";
 import WarningModal from "../modals/warningModal";
+import { updateCards } from "../../../helperFunctions/axiosRequests";
 import "../../styles/cards.css";
 
 export default function Sets({
   userGroups,
   setGroup,
+  groupDisplayed,
   setGroupDisplayed,
   groupsFormik,
 }) {
@@ -16,7 +18,6 @@ export default function Sets({
   const [trash, showTrash] = useState(false);
   const [deleet, setDeleet] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(0);
-  console.log(trash);
   return (
     <>
       <div className="dashboardSets">
@@ -26,10 +27,17 @@ export default function Sets({
               <div
                 className="set"
                 key={group.id}
-                onClick={() => {
-                  setGroupDisplayed(index);
-                  setGroup(false);
-                  setDeleteIndex(index);
+                onClick={async () => {
+                  try {
+                    console.log("hi");
+                    await updateCards(groupsFormik, groupDisplayed);
+                  } catch (err) {
+                    console.log(err);
+                  } finally {
+                    setGroupDisplayed(index);
+                    setGroup(false);
+                    setDeleteIndex(index);
+                  }
                 }}
               >
                 <h3>{group.title}</h3>

@@ -4,6 +4,7 @@ import Icon from "@mdi/react";
 import { mdiAccount } from "@mdi/js";
 import { mdiArrowRightBoldBoxOutline } from "@mdi/js";
 import { mdiArrowLeftBoldBoxOutline } from "@mdi/js";
+import {updateCards} from "../helperFunctions/axiosRequests";
 import "../components/styles/cards.css";
 import "../components/styles/quiz.css";
 import {
@@ -15,23 +16,30 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { useContext, useEffect, useState } from "react";
 import { QuizContext } from "./dashboard";
 
-export default function Quiz({ cardsFormik }) {
+export default function Quiz({
+  cardsFormik,
+  setFieldValue,
+  groupPath,
+  groupsFormik,
+  groupDisplayed,
+}) {
   const [back, setBack] = useState(false);
   const [currentCard, setCurrentCard] = useState(0);
-  const [animationClass, setAnimationClass] = useState("slide-reset");  
+  const [animationClass, setAnimationClass] = useState("slide-reset");
   const { quizFilters, setDisplayQuiz, filteredCards } =
     useContext(QuizContext);
   const [key, setKey] = useState(Date.now());
   const [timeRemaining, setTimeRemaining] = useState(quizFilters.timeLimit);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeRemaining(timeRemaining - 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [timeRemaining]);
+  if (timeRemaining > 0) {
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setTimeRemaining(timeRemaining - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }, [timeRemaining]);
+  }
 
- 
   function goBack(e) {
     if (currentCard > 0) {
       setBack(false);
@@ -50,15 +58,14 @@ export default function Quiz({ cardsFormik }) {
       }, 500);
 
       setTimeout(() => {
-        
         setAnimationClass("slide-reset");
       }, 1000);
-      
     }
   }
 
   function submitQuiz() {
-    console.log(cardsFormik.values.userCards);
+    console.log(JSON.stringify(cardsFormik));
+    updateCards(groupsFormik, groupDisplayed);
     setDisplayQuiz(false);
   }
   if (timeRemaining === 0) {
@@ -69,9 +76,7 @@ export default function Quiz({ cardsFormik }) {
   return (
     <Container className="quizPage">
       <Row>
-        <Col>
-          <h1>Time Left: {timeRemaining}s</h1>
-        </Col>
+        <Col>{timeRemaining > 0 && <h1>Time Left: {timeRemaining}s</h1>}</Col>
       </Row>
       <Row>
         <Col>
@@ -84,13 +89,15 @@ export default function Quiz({ cardsFormik }) {
       </Row>
       <Row className="quizRow">
         <Col className="quizIconCol">
-          {currentCard > 0 && <button onClick={goBack}>
-            <Icon
-              path={mdiArrowLeftBoldBoxOutline}
-              size={3}
-              className="quizIcon"
-            />
-          </button>}
+          {currentCard > 0 && (
+            <button onClick={goBack}>
+              <Icon
+                path={mdiArrowLeftBoldBoxOutline}
+                size={3}
+                className="quizIcon"
+              />
+            </button>
+          )}
         </Col>
         <Col className="quizCardCol" md={6}>
           {filteredCards[currentCard].cardType == "flashcard" ? (
@@ -99,7 +106,8 @@ export default function Quiz({ cardsFormik }) {
               card={filteredCards[currentCard]}
               back={back}
               setBack={setBack}
-              cardsFormik={cardsFormik}
+              setFieldValue={setFieldValue}
+              groupPath={groupPath}
               key={key}
             />
           ) : (
@@ -108,15 +116,18 @@ export default function Quiz({ cardsFormik }) {
               card={filteredCards[currentCard]}
               back={back}
               setBack={setBack}
-              cardsFormik={cardsFormik}
+              setFieldValue={setFieldValue}
+              groupPath={groupPath}
               key={key}
             />
           )}
         </Col>
         <Col className="quizIconCol">
-          {currentCard < filteredCards.length - 1 && <button onClick={goForward}>
-            <Icon path={mdiArrowRightBoldBoxOutline} size={3} />
-          </button>}
+          {currentCard < filteredCards.length - 1 && (
+            <button onClick={goForward}>
+              <Icon path={mdiArrowRightBoldBoxOutline} size={3} />
+            </button>
+          )}
         </Col>
       </Row>
       <Row>

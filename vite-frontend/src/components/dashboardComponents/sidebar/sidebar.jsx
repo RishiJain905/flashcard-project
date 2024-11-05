@@ -2,28 +2,35 @@ import { Button } from "react-bootstrap";
 import "../../styles/sidebar.css";
 import { useState } from "react";
 import SetModal from "../modals/setModal";
+import {updateCards} from "../../../helperFunctions/axiosRequests";
+import { useNavigate } from "react-router";
 
 export default function Sidebar({
   userInfo,
+  groupDisplayed,
   setGroupDisplayed,
   setGroup,
   groupsFormik,
-
 }) {
   const [show, setShow] = useState(false);
- 
+  const navigate = useNavigate();
   return (
     <>
-      
       <div>
         <div className="userInfo">
-          <div className="pfp"></div>
           <h3>{userInfo.name}</h3>
           <h4>{userInfo.email}</h4>
         </div>
 
         <div className="sideBarDashboard">
-          <button onClick={() => setGroup(true)}>Dashboard</button>
+          <button
+            onClick={async () => {
+              await updateCards(groupsFormik, groupDisplayed);
+              setGroup(true);
+            }}
+          >
+            Dashboard
+          </button>
         </div>
 
         <div className="sideBarSets">
@@ -31,7 +38,12 @@ export default function Sidebar({
             return (
               <button
                 key={group.id}
-                onClick={() => {
+                onClick={async () => {
+                  console.log(
+                    groupsFormik.values.userGroups[groupDisplayed],
+                    groupDisplayed
+                  );
+                  await updateCards(groupsFormik, groupDisplayed);
                   setGroupDisplayed(index);
                   setGroup(false);
                 }}
@@ -47,10 +59,15 @@ export default function Sidebar({
         </div>
 
         <div className="sideBarSettings">
-          <button>Log Out</button>
+          <button onClick={
+            () => {
+              localStorage.clear();
+              navigate("/");
+            }
+          }>Log Out</button>
         </div>
       </div>
-      
+
       <SetModal show={show} setShow={setShow} groupsFormik={groupsFormik} />
     </>
   );
