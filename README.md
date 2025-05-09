@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/206c7c6d-da51-48ad-9464-6ff5a141f76c)
+
 # Flashcard App
 
 A full-stack Flashcard application designed to help users create, manage, and study flashcards. The project is still under development, with planned features and improvements to optimize the learning experience.
@@ -39,7 +41,7 @@ To run the project locally, clone the repository and install dependencies in bot
     cd ./vite-frontend
     npm run dev
     cd ../server
-    node --watch app.js
+    node --watch server.js
 
 ### Environmental Variables
 The backend server will require environment variables to connect to a database or handle authentication. Create a .env file in the server directory with the following keys:
