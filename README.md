@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/206c7c6d-da51-48ad-9464-6ff5a141f76c)
+![image](./homepage.png)
 
 # Flashcard App
 
