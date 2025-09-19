@@ -1,6 +1,6 @@
 ![image](./homepage.png)
 
-# Flashcard App
+# Quiztime
 
 A full-stack Flashcard application designed to help users create, manage, and study flashcards. The project is still under development, with planned features and improvements to optimize the learning experience.
 
